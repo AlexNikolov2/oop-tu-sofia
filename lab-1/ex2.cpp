@@ -39,7 +39,7 @@ void timeclock::display(const char *format)
     }
     else
     {
-        cout << "Time is: " << hours << " hours, " << minutes << " minutes, " << seconds << " seconds (24-hour format).\n";
+        cout << "Time is: " << hours << ":" << minutes << ":" << seconds << " (24-hour format).\n";
     }
 }
 
@@ -55,7 +55,6 @@ int main()
     timeclock *ptr;
     ptr = new timeclock;
     ptr->display();
-    delete ptr;
 
     return 0;
 }
