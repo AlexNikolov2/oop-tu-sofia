@@ -14,7 +14,7 @@ private:
 public:
     timeclock();
     void display(const char *format = "24-hour");
-    void formattedDisplay(const char *format);
+    void formattedDisplay();
     ~timeclock()
     {
         cout << "\nDestructing object timeclock!\n";
@@ -40,23 +40,23 @@ void timeclock::display(const char *format)
     }
     else
     {
-        cout << "Time is: " << hours << ":" << minutes << ":" << seconds << " (24-hour format).\n";
+        cout << "Time is: " << (hours < 10 ? "0" : "") << hours << ":" << (minutes < 10 ? "0" : "") << minutes << ":" << (seconds < 10 ? "0" : "") << seconds << " (24-hour format).\n";
     }
 }
 
-void timeclock::formattedDisplay(const char *format)
+void timeclock::formattedDisplay()
 {
-    if (format == "AM")
+    if (hours < 12)
     {
         int displayHours = hours % 12;
         displayHours = (displayHours == 0) ? 12 : displayHours;
-        cout << "Time is: " << displayHours << " hours, " << minutes << " minutes, " << seconds << " seconds AM.\n";
+        cout << "Time is: " << (displayHours < 10 ? "0" : "") << displayHours << " : " << (minutes < 10 ? "0" : "") << minutes << " : " << (seconds < 10 ? "0" : "") << seconds << " AM.\n";
     }
-    else if (format == "PM")
+    else
     {
         int displayHours = hours % 12;
         displayHours = (displayHours == 0) ? 12 : displayHours;
-        cout << "Time is: " << displayHours << " hours, " << minutes << " minutes, " << seconds << " seconds PM.\n";
+        cout << "Time is: " << (displayHours < 10 ? "0" : "") << displayHours << " : " << (minutes < 10 ? "0" : "") << minutes << " : " << (seconds < 10 ? "0" : "") << seconds << " PM.\n";
     }
 }
 
@@ -65,19 +65,16 @@ int main()
 
     timeclock t1;
     t1.display();
-    t1.formattedDisplay("AM");
-    t1.formattedDisplay("PM");
+    t1.formattedDisplay();
 
     timeclock t2;
     t2.display();
-    t2.formattedDisplay("AM");
-    t2.formattedDisplay("PM");
+    t2.formattedDisplay();
 
     timeclock *ptr;
     ptr = new timeclock;
     ptr->display();
-    ptr->formattedDisplay("AM");
-    ptr->formattedDisplay("PM");
+    ptr->formattedDisplay();
     delete ptr;
 
     return 0;
