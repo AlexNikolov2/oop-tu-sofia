@@ -1,13 +1,16 @@
 #include <iostream>
 #include <list>
+#include <vector>
+
+using namespace std;
 
 int main()
 {
     // Define an empty list of integers
-    std::list<int> myList;
+    list<int> myList;
 
     // Define a list with initial values
-    std::list<int> numbers = {1, 2, 3, 4, 5};
+    list<int> numbers = {1, 2, 3, 4, 5};
 
     // Add elements to the list
     myList.push_back(10); // Add to end
@@ -16,12 +19,12 @@ int main()
     // Iterate through the list
     for (int num : numbers)
     {
-        std::cout << num << " ";
+        cout << num << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     // Access size
-    std::cout << "Size: " << numbers.size() << std::endl;
+    cout << "Size: " << numbers.size() << endl;
 
     // Remove elements
     numbers.pop_front(); // Remove first element
@@ -32,56 +35,137 @@ int main()
 // Dynamic list example - list grows/shrinks at runtime
 void dynamicListExample()
 {
-    std::list<int> dynamicList;
+    list<int> dynamicList;
 
-    std::cout << "\n--- Dynamic List Example ---" << std::endl;
+    cout << "\n--- Dynamic List Example ---" << endl;
 
     // Dynamically add elements
     for (int i = 1; i <= 5; i++)
     {
         dynamicList.push_back(i * 10);
-        std::cout << "Added " << i * 10 << ", Size: " << dynamicList.size() << std::endl;
+        cout << "Added " << i * 10 << ", Size: " << dynamicList.size() << endl;
     }
 
     // Display current list
-    std::cout << "Current list: ";
+    cout << "Current list: ";
     for (int val : dynamicList)
     {
-        std::cout << val << " ";
+        cout << val << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     // Dynamically remove elements
     while (!dynamicList.empty())
     {
-        std::cout << "Removing " << dynamicList.front() << ", Size: " << dynamicList.size() << std::endl;
+        cout << "Removing " << dynamicList.front() << ", Size: " << dynamicList.size() << endl;
         dynamicList.pop_front();
     }
 
-    std::cout << "List is now empty: " << (dynamicList.empty() ? "Yes" : "No") << std::endl;
+    cout << "List is now empty: " << (dynamicList.empty() ? "Yes" : "No") << endl;
 }
 
 // Array example - fixed size, defined at compile time
 void arrayExample()
 {
-    std::cout << "\n--- Array Example ---" << std::endl;
+    cout << "\n--- Array Example ---" << endl;
 
     // Define array with fixed size
     int arr[5] = {10, 20, 30, 40, 50};
 
     // Access elements by index
-    std::cout << "First element: " << arr[0] << std::endl;
-    std::cout << "Last element: " << arr[4] << std::endl;
+    cout << "First element: " << arr[0] << endl;
+    cout << "Last element: " << arr[4] << endl;
 
     // Iterate through array
-    std::cout << "All elements: ";
+    cout << "All elements: ";
     for (int i = 0; i < 5; i++)
     {
-        std::cout << arr[i] << " ";
+        cout << arr[i] << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     // Modify elements
     arr[2] = 100;
-    std::cout << "Modified element at index 2: " << arr[2] << std::endl;
+    cout << "Modified element at index 2: " << arr[2] << endl;
+}
+// Dynamic array example - using new/delete
+void dynamicArrayExample()
+{
+    cout << "\n--- Dynamic Array Example ---" << endl;
+
+    int size;
+    cout << "Enter array size: ";
+    cin >> size;
+
+    // Allocate dynamic array
+    int *dynamicArr = new int[size];
+
+    // Initialize elements
+    for (int i = 0; i < size; i++)
+    {
+        dynamicArr[i] = (i + 1) * 10;
+    }
+
+    // Display elements
+    cout << "Dynamic array elements: ";
+    for (int i = 0; i < size; i++)
+    {
+        cout << dynamicArr[i] << " ";
+    }
+    cout << endl;
+
+    // Clean up - free memory
+    delete[] dynamicArr;
+    cout << "Memory deallocated." << endl;
+}
+// Class with vector as property
+class Student
+{
+private:
+    string name;
+    vector<int> grades;
+
+public:
+    Student(string n) : name(n) {}
+
+    void addGrade(int grade)
+    {
+        grades.push_back(grade);
+    }
+
+    void displayGrades()
+    {
+        cout << name << "'s grades: ";
+        for (int grade : grades)
+        {
+            cout << grade << " ";
+        }
+        cout << endl;
+    }
+
+    double getAverage()
+    {
+        if (grades.empty())
+            return 0.0;
+
+        double sum = 0;
+        for (int grade : grades)
+        {
+            sum += grade;
+        }
+        return sum / grades.size();
+    }
+};
+
+void vectorPropertyExample()
+{
+    cout << "\n--- Vector Property Example ---" << endl;
+
+    Student student("Alex");
+    student.addGrade(85);
+    student.addGrade(90);
+    student.addGrade(78);
+
+    student.displayGrades();
+    cout << "Average: " << student.getAverage() << endl;
 }
